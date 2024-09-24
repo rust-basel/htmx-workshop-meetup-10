@@ -1,0 +1,20 @@
+[package]
+name = "htmx-workshop-meetup-10"
+version = "0.1.0"
+edition = "2021"
+homepage = "https://rust-basel.ch/"
+repository = "https://github.com/rust-basel/htmx-workshop-meetup-10"
+license-file = "LICENSE"
+readme = "README.md"
+
+authors=[
+"Yasin Gündüz https://github.com/yguenduez",
+"Roland Brand - https://github.com/bar9",
+"Silen Locatelli - https://github.com/SilenLoc",
+]
+
+
+
+
+
+[dependencies]

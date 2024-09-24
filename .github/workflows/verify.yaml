@@ -1,0 +1,27 @@
+name: Verify
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    
+  
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Rust setup
+        uses: dtolnay/rust-toolchain@stable
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+ 
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: just@1
+      - run: just verify      
+      
