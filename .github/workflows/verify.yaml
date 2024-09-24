@@ -23,5 +23,7 @@ jobs:
       - uses: taiki-e/install-action@v2
         with:
           tool: just@1
-      - run: just verify      
+      - run: just verify
+        env: 
+          PROFILE-NAME: "ci-rust"
       

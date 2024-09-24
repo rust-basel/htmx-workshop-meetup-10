@@ -25,3 +25,12 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 colored = "2"
 anyhow= "1"
 lazy_static = "1"
+
+[profile.dev.package."*"]
+opt-level = 1
+
+
+[profile.ci-rust]
+inherits = "dev"
+debug = false
+incremental = false
