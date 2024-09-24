@@ -16,5 +16,12 @@ authors=[
 
 
 
-
 [dependencies]
+axum = {version = "0.7.5", features = ["json"]}
+tokio = { version = "1.0", features = ["full"] }
+askama = { version = "0.12.1" }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+colored = "2"
+anyhow= "1"
+lazy_static = "1"
