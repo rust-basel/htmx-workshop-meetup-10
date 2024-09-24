@@ -12,4 +12,4 @@ The repository for the htmx-rust workshop
 
 - [Just](https://just.systems/man/en/packages.html)
 
-> You may just copy the commands inside of the file called "justfile"
+> If you do not want to install just, you can copy the commands inside of the file called "justfile"
