@@ -1,3 +1,5 @@
+use axum::extract::State;
+use axum::http::StatusCode;
 use axum::{body::Body, extract::Query};
 use axum::{
     http::{header, Response},
@@ -7,19 +9,20 @@ use image::ImageFormat;
 
 use std::io::{BufWriter, Cursor};
 
-use crate::qr_code::core::some_qr_as_image;
-use serde::Deserialize;
+use crate::qr_code::persictence::QrCodeInMemoryDb;
 
-#[derive(Deserialize)]
-pub struct QrId {
-    _id: String,
-}
-
-pub async fn qr_code_as_picture(_qr_code_id: Query<QrId>) -> impl IntoResponse {
-    let image = some_qr_as_image();
+pub async fn qr_code_as_picture(
+    State(db): State<QrCodeInMemoryDb>,
+    qr_code_id: Query<super::QrId>,
+) -> impl IntoResponse {
+    // TODO handle unwrap
+    let id = qr_code_id.id.clone().unwrap();
+    let Some(image) = db.get(id).await else {
+        return StatusCode::NOT_FOUND.into_response();
+    };
 
     let mut buffer = BufWriter::new(Cursor::new(Vec::new()));
-    image.write_to(&mut buffer, ImageFormat::Png).unwrap();
+    image.0.write_to(&mut buffer, ImageFormat::Png).unwrap();
 
     let bytes: Vec<u8> = buffer.into_inner().unwrap().into_inner();
 

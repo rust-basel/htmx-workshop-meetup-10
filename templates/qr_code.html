@@ -4,13 +4,24 @@
 <title>Qr code generator</title>
 </head>
 <body>
+    
+    <h1>Qr codes</h1>
+    <ul>
+    {% for qr in available_codes %}
+   
+      <li> <a href="/?id={{ qr }}">{{ qr }}</a></li>
+    {% endfor %}
+    </ul>
 
-<h1>A qr code</h1>
-
+<h2>Current</h2>
 <div>
-    This is it: 
-    <img src="/qrcodes?_id={{ qr_code }}" alt="{{ qr_code }}" style="width:128px;height:128px;">
-
+    
+    {% if let Some(qr_code) = qr_code %}
+     <img src="/qrcodes?id={{ qr_code }}" alt="{{ qr_code }}" style="width:128px;height:128px;">
+    {% else %}
+      No qr code
+    {% endif %}
+    
 </div>
 
 </body>

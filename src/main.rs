@@ -1,8 +1,8 @@
 use server::create_server;
 
-mod qr_code;
-mod server;
-mod technical_endpoints;
+pub mod qr_code;
+pub mod server;
+pub mod technical_endpoints;
 
 use colored::Colorize;
 

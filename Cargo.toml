@@ -29,6 +29,13 @@ lazy_static = "1"
 qrcode = "0.14.1"
 image = "0.25.2"
 mime = "0.3"
+async-trait = "0.1.83"
+uuid = {version ="1.10.0", features = [
+    "v4",                # Lets you generate random UUIDs
+    "fast-rng",          # Use a faster (but still sufficiently random) RNG
+    "macro-diagnostics", # Enable better diagnostics for compile-time UUIDs
+] }
+
 
 [profile.dev.package."*"]
 opt-level = 1
