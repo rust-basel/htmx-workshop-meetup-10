@@ -22,5 +22,6 @@ pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
 fn make_api() -> Router {
     Router::new()
         .route("/healthz", get(healthz))
-        .route("/qrcode", get(qr_code::qr_code_html))
+        .route("/", get(qr_code::qr_code_html))
+        .route("/qrcodes", get(qr_code::qr_code_as_picture))
 }

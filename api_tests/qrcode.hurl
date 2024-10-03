@@ -1,4 +1,4 @@
-GET {{target}}/qrcode
+GET {{target}}/?id=1
 HTTP 200
 
 [Asserts]
