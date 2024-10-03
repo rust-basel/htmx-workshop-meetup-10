@@ -4,7 +4,7 @@ use axum::{routing::get, Router};
 use colored::Colorize;
 use tokio::net::TcpListener;
 
-use crate::technical_endpoints::healthz;
+use crate::{qr_code, technical_endpoints::healthz};
 
 pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
     let port: String = env::var("SERVER_PORT").unwrap_or("3000".to_string());
@@ -20,5 +20,7 @@ pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
 }
 
 fn make_api() -> Router {
-    Router::new().route("/healthz", get(healthz))
+    Router::new()
+        .route("/healthz", get(healthz))
+        .route("/qrcode", get(qr_code::qr_code_html))
 }

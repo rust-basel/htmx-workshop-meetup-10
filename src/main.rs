@@ -1,5 +1,6 @@
 use server::create_server;
 
+mod qr_code;
 mod server;
 mod technical_endpoints;
 
