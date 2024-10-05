@@ -4,8 +4,6 @@
 
 </div>
 
-The repository for the htmx-rust workshop
-
 ### Requirements
 
 #### Needed
