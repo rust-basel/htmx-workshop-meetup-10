@@ -4,7 +4,7 @@
   },
   "styles": {
     "theme": "hacker",
-    "favicon": "./static/favicon.ico"
+    "favicon": "./static/favicon.png"
   },
   "components": {
     "mdbook": {
