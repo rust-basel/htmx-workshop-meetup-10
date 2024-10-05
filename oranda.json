@@ -3,7 +3,7 @@
     "path_prefix": "htmx-workshop-meetup-10"
   },
   "styles": {
-    "theme": "hacker",
+    "theme": "dark",
     "favicon": "./static/favicon.png"
   },
   "components": {
