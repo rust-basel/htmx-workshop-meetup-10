@@ -1,14 +1,18 @@
+<div class="oranda-hide">
+
 # htmx-workshop-meetup-10
+
+</div>
 
 The repository for the htmx-rust workshop
 
-## Requirements
+### Requirements
 
-### Needed
+#### Needed
 
 - [Rust](https://www.rust-lang.org/tools/install)
 
-### Optional
+#### Optional
 
 - [Just](https://just.systems/man/en/packages.html)
 
