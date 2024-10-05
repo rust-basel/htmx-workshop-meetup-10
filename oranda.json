@@ -1,0 +1,14 @@
+{
+  "build": {
+    "path_prefix": "htmx-workshop-meetup-10"
+  },
+  "styles": {
+    "theme": "hacker",
+    "favicon": "./static/favicon.ico"
+  },
+  "components": {
+    "mdbook": {
+      "path": "./meetup"
+    }
+  }
+}

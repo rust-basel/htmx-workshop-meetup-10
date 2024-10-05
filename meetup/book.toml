@@ -1,0 +1,6 @@
+[book]
+authors = ["Rust Basel"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Meetup"
