@@ -25,3 +25,6 @@ lint:
 
 fmt:
     cargo fmt
+    
+book:
+    mdbook serve meetup
