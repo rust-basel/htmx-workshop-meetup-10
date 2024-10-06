@@ -15,7 +15,7 @@ on:
       - main
     paths:
       - README.md
-      - meetup/*
+      - meetup/**
       - oranda.json
   workflow_run:
     workflows: [ "Release" ]
