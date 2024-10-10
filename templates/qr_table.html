@@ -1,0 +1,21 @@
+ <table id="qr_code_table"
+        hx-get="/qr_table"
+        hx-trigger="load delay:1s"
+        hx-swap="outerHTML"
+ >
+     <thead>
+     <tr>
+         <th scope="col">Id</th>
+     </tr>
+     <tbody>
+     {% for qr in available_codes %}
+     <tr>
+         <td>
+         <a href="/?id={{ qr }}">{{ qr }}</a>
+         </td>
+     </tr>
+
+     {% endfor %}
+ </tbody>
+     </thead>
+ </table>

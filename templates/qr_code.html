@@ -1,39 +1,111 @@
 <!DOCTYPE html>
-<html>
-    <link rel="stylesheet" href="_assets/pico.min.css">
-    <script src="/_assets/htmx.min.js"></script>
-    
+<html data-theme="dark">
+<link rel="stylesheet" href="_assets/pico.min.css"> 
+<link rel="stylesheet" href="_assets/app.css">
+<script src="/_assets/htmx.min.js"></script>
+
 <head>
-<title>Qr code generator</title>
+    <title>Qr code generator</title>
 </head>
 <body id="full_body">
-    <main class="container">
-    <h1>Qr codes</h1>
-    <ul>
-    {% for qr in available_codes %}
-   
-      <li> <a href="/?id={{ qr }}">{{ qr }}</a></li>
-    {% endfor %}
-    </ul>
+<main class="container">
 
-<h2>Current</h2>
-<div>
+   <h2>Qr code generator</h2>
+    <div>
+
+    <div class="qr-container">
+        <div id="qr_code_image">
+            {% if let Some(qr_code) = qr_code %}
+            <img class="qrcode" src="/qrcodes?id={{ qr_code }}" alt="{{ qr_code }}" >
+            {% else %}
+            No qr code
+            {% endif %}
+        </div>
+
+        <form
+                class='outline generate-form'
+                hx-post="/qrcodes"
+                hx-target="#qr_code_image"
+                hx-swap="inneHTML"
+        >
+
+            <label for="qrcode-name">
+                IBAN
+            </label>
+            <input 
+                type="text"
+                id="qrcode-iban"
+                name="iban"
+                pattern="^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$"
+                value="CH5604835012345678009"
+                placeholder="no effect yet"
+            >
+            <label for="qrcode-name">
+                Name
+            </label>
+            <input 
+                type="text"
+                id="qrcode-name"
+                name="qr_code_name"
+                placeholder="no effect yet"
+            >
+                
+            <label for="qrcode-name">
+                Amount
+            </label>
+            <input 
+                type="number"
+                id="qrcode-amount"
+                name="amount"
+                placeholder="no effect yet"
+            >
+                
+            <label for="qrcode-name">
+                Currency
+            </label>
+            <input type="text"
+                id="qrcode-currency"
+                name="currency"
+                pattern="[A-Za-z]{3}"
+                value="CHF"
+                placeholder="no effect yet"
+            >
+
+            <button
+                   type="submit"
+            >
+                Generate
+            </button>
+        </form>
+
+    </div>
     
-    {% if let Some(qr_code) = qr_code %}
-     <img id="qr_code_image" src="/qrcodes?id={{ qr_code }}" alt="{{ qr_code }}" style="width:128px;height:128px;">
-    {% else %}
-      No qr code
-    {% endif %}
     
-     <button 
-        class='btn primary' 
-        hx-post="/qrcodes"
-        hx-target="#full_body"
-        hx-swap="inneHTML">
-        create qr code
-       </button>
-</div>
-    </main>
+    <article>
+        <header>
+            <h2>Qr codes</h2>
+        </header>
+        <body>
+            <div class="overflow-auto fixed-container">
+                <table id="qr_code_table"
+                       hx-get="/qr_table"
+                       hx-trigger="load delay:1s"
+                       hx-swap="outerHTML"
+                       class="qr-table"
+                >
+                </table>
+            </div>
+        </body>
+
+    </article>
+       
+    
+  
+
+        
+    </div>
+</main>
+<footer class="container"> Rust Basel Workshop 10</footer>
 </body>
 </html>
 

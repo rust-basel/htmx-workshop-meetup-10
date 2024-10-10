@@ -1,0 +1,6 @@
+
+{% if let Some(qr_code) = qr_code %}
+  <img class="qrcode" id="qr_code_image" src="/qrcodes?id={{ qr_code }}" alt="{{ qr_code }}">
+{% else %}
+    No qr code
+{% endif %}

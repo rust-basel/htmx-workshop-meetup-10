@@ -12,7 +12,7 @@ use crate::{
     qr_code::{
         persictence::QrCodeInMemoryDb,
         qr_code_endpoints::{
-            create_a_pr_code_image, create_qr_code, qr_code_as_picture, qr_code_html,
+            create_a_pr_code_image, create_qr_code, qr_code_as_picture, qr_code_html, qr_table,
         },
     },
     technical_endpoints::healthz,
@@ -21,7 +21,7 @@ use crate::{
 pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
     let port: String = env::var("SERVER_PORT").unwrap_or("3000".to_string());
     let binding = format!("0.0.0.0:{}", port);
-    println!("listeng at: {}", binding.green());
+    println!("listening at: {}", binding.green());
 
     let db = QrCodeInMemoryDb::new();
     let (id, code) = create_a_pr_code_image().await;
@@ -47,4 +47,5 @@ fn make_api() -> Router<QrCodeInMemoryDb> {
         .route("/", get(qr_code_html))
         .route("/qrcodes", get(qr_code_as_picture))
         .route("/qrcodes", post(create_qr_code))
+        .route("/qr_table", get(qr_table))
 }

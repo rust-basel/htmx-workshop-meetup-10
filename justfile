@@ -7,6 +7,9 @@ alias r := run
 @default:
     just --list
 
+watch:
+    cargo watch -s 'just run'
+
 run *args:
     cargo run -q -- {{args}}
 
