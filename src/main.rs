@@ -1,5 +1,6 @@
 use server::create_server;
 
+pub mod assets;
 pub mod qr_code;
 pub mod server;
 pub mod technical_endpoints;

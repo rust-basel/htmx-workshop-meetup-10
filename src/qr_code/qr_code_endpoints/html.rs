@@ -34,10 +34,20 @@ pub async fn qr_code_html(State(db): State<QrCodeInMemoryDb>, id: Query<QrId>) -
     Html(string)
 }
 
-pub async fn create_qr_code(State(db): State<QrCodeInMemoryDb>) {
+pub async fn create_qr_code(State(db): State<QrCodeInMemoryDb>) -> Html<String> {
     // just create one for now
     let (id, code) = create_a_pr_code_image().await;
     db.set(id.clone(), code).await;
+
+    let all_keys = db.keys().await;
+
+    let string = QrTemplate {
+        qr_code: Some(id.as_str()),
+        available_codes: all_keys,
+    }
+    .render()
+    .unwrap();
+    Html(string)
 }
 pub async fn create_a_pr_code_image() -> (String, QrCodeImage) {
     let id = Uuid::new_v4().to_string();

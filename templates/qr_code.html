@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
+    <link rel="stylesheet" href="_assets/pico.min.css">
+    <script src="/_assets/htmx.min.js"></script>
+    
 <head>
 <title>Qr code generator</title>
 </head>
-<body>
-    
+<body id="full_body">
+    <main class="container">
     <h1>Qr codes</h1>
     <ul>
     {% for qr in available_codes %}
@@ -17,13 +20,20 @@
 <div>
     
     {% if let Some(qr_code) = qr_code %}
-     <img src="/qrcodes?id={{ qr_code }}" alt="{{ qr_code }}" style="width:128px;height:128px;">
+     <img id="qr_code_image" src="/qrcodes?id={{ qr_code }}" alt="{{ qr_code }}" style="width:128px;height:128px;">
     {% else %}
       No qr code
     {% endif %}
     
+     <button 
+        class='btn primary' 
+        hx-post="/qrcodes"
+        hx-target="#full_body"
+        hx-swap="inneHTML">
+        create qr code
+       </button>
 </div>
-
+    </main>
 </body>
 </html>
 

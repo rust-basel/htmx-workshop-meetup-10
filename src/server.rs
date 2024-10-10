@@ -8,6 +8,7 @@ use colored::Colorize;
 use tokio::net::TcpListener;
 
 use crate::{
+    assets,
     qr_code::{
         persictence::QrCodeInMemoryDb,
         qr_code_endpoints::{
@@ -26,11 +27,18 @@ pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
     let (id, code) = create_a_pr_code_image().await;
     db.set(id.clone(), code).await;
 
-    let app = Router::new().nest("/", make_api()).with_state(db);
+    let app = Router::new()
+        .nest("/", make_api())
+        .with_state(db)
+        .nest("/", assets());
 
     let listener = tokio::net::TcpListener::bind(binding).await.unwrap();
 
     Ok((listener, app))
+}
+
+fn assets() -> Router {
+    Router::new().nest_service("/_assets", assets::using_serve_dir())
 }
 
 fn make_api() -> Router<QrCodeInMemoryDb> {
