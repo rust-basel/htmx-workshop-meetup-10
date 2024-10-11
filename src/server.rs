@@ -7,7 +7,7 @@ use axum::{
 use colored::Colorize;
 use tokio::net::TcpListener;
 
-use crate::qr_code;
+use crate::qr_code::{self, core::QrData};
 use crate::{assets, qr_code::persictence::QrCodeInMemoryDb, technical_endpoints::healthz};
 
 pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
@@ -16,7 +16,7 @@ pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
     println!("listening at: {}", binding.green());
 
     let db = QrCodeInMemoryDb::new();
-    let (id, code) = qr_code::endpoints::create_image().await;
+    let (id, code) = qr_code::endpoints::create_image(QrData::test_code()).await;
     db.set(id.clone(), code).await;
 
     let app = Router::new()
