@@ -7,16 +7,8 @@ use axum::{
 use colored::Colorize;
 use tokio::net::TcpListener;
 
-use crate::{
-    assets,
-    qr_code::{
-        persictence::QrCodeInMemoryDb,
-        qr_code_endpoints::{
-            create_a_pr_code_image, create_qr_code, qr_code_as_picture, qr_code_html, qr_table,
-        },
-    },
-    technical_endpoints::healthz,
-};
+use crate::qr_code;
+use crate::{assets, qr_code::persictence::QrCodeInMemoryDb, technical_endpoints::healthz};
 
 pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
     let port: String = env::var("SERVER_PORT").unwrap_or("3000".to_string());
@@ -24,7 +16,7 @@ pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
     println!("listening at: {}", binding.green());
 
     let db = QrCodeInMemoryDb::new();
-    let (id, code) = create_a_pr_code_image().await;
+    let (id, code) = qr_code::endpoints::create_image().await;
     db.set(id.clone(), code).await;
 
     let app = Router::new()
@@ -44,8 +36,8 @@ fn assets() -> Router {
 fn make_api() -> Router<QrCodeInMemoryDb> {
     Router::new()
         .route("/healthz", get(healthz))
-        .route("/", get(qr_code_html))
-        .route("/qrcodes", get(qr_code_as_picture))
-        .route("/qrcodes", post(create_qr_code))
-        .route("/qr_table", get(qr_table))
+        .route("/", get(qr_code::endpoints::page))
+        .route("/qrcodes", get(qr_code::endpoints::qr_code_as_picture))
+        .route("/qrcodes", post(qr_code::endpoints::create))
+        .route("/qr_table", get(qr_code::endpoints::qr_table))
 }
