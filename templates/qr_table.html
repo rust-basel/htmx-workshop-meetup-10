@@ -1,12 +1,10 @@
  <table id="qr_code_table"
         hx-get="/qr_table"
         hx-trigger="load delay:1s"
-        hx-swap="outerHTML"
+        hx-ext ="alpine-morph"
+        hx-swap="morph"
  >
      <thead>
-     <tr>
-         <th scope="col">Id</th>
-     </tr>
      <tbody>
      {% for qr in available_codes %}
      <tr>

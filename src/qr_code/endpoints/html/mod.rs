@@ -5,4 +5,4 @@ mod table;
 pub use create::create;
 pub use create::create_image;
 pub use index::page;
-pub use table::qr_table;
+pub use table::get_table;

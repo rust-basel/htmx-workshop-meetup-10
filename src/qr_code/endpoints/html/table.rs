@@ -9,8 +9,7 @@ struct QrTableTemplate {
     available_codes: Vec<String>,
 }
 
-pub async fn qr_table(State(db): State<QrCodeInMemoryDb>) -> Html<String> {
-    //get all available
+pub async fn get_table(State(db): State<QrCodeInMemoryDb>) -> Html<String> {
     let all_keys = db.keys().await;
 
     let string = QrTableTemplate {

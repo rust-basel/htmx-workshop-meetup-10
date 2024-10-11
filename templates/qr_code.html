@@ -86,11 +86,17 @@
             <h2>Qr codes</h2>
         </header>
         <body>
+            <table id="qr_code_header" class="header-table">
+                <tr>
+                    <th scope="col">Id</th>
+                </tr>
+            </table>
             <div class="overflow-auto fixed-container">
                 <table id="qr_code_table"
+                    hx-ext ="alpine-morph"
                        hx-get="/qr_table"
                        hx-trigger="load delay:1s"
-                       hx-swap="outerHTML"
+                       hx-swap="morph"
                        class="qr-table"
                 >
                 </table>
