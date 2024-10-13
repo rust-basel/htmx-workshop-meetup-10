@@ -2,7 +2,8 @@
 
 In the chapter before you are only able to answer to client requests, that do not contain any payload. But there must be a way to send our small little server a payload.
 
-For example I have a server, that has some sort of user management, you want to add a new person to your database at some point in time.
+For example:
+ A server, that has some sort of user management, you want to add a new person to your database at some point in time.
 
 This is done by so called _extractors_. The incoming request is parsed, and if it for example contains a JSON payload, you have a JSON extractor, that parses that JSON.
 After parsing you then can work on the data contained in the JSON.

@@ -11,5 +11,5 @@ What does axum feature, or set them apart from other frameworks:
 So what will we show you, that you will need later on:
 
 - How to write a handler in axum and return data as http response
-- How to extract payload from an incoming request (Extractors)
-- How to add state to you application
+- How to extract a payload from an incoming request (Extractors)
+- How to add state to your application
