@@ -3,6 +3,8 @@
 We are going to introduce you [HTMX](https://htmx.org/) with the rust server framework [axum](https://github.com/tokio-rs/axum), which enables you to write reactive
 web applications with ease without the need of javascript frameworks.
 
+You can get a good grasp by looking at [fireship's 100s of HTMX video](https://www.youtube.com/watch?v=r-GSGH2RxJs).
+
 ## First Workshop Part
 
 In this first part we will show you some basics with [axum](https://github.com/tokio-rs/axum),
