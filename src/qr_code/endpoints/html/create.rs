@@ -37,7 +37,9 @@ pub async fn create(
 
     let (id, code, debug) = create_image(data).await;
     db.set(id.clone(), code).await;
-    db.set_debug(id.clone(), debug).await;
+    db.set_debug(id.clone(), debug.clone()).await;
+
+    println!("Created qr code: {debug}");
 
     let string = CreatedQrTemplate {
         qr_code: Some(id.as_str()),

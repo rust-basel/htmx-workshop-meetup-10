@@ -19,8 +19,8 @@ pub fn some_qr_as_image(data: QrData) -> QRBill {
         _ => Currency::SwissFranc,
     };
 
-    let qrbill = QRBill::new(QRBillOptions {
-        account: String::from(data.iban.raw).parse::<Iban>().unwrap(),
+    QRBill::new(QRBillOptions {
+        account: data.iban.raw.parse::<Iban>().unwrap(),
         creditor: Address::Structured(StructuredAddress {
             name: data.name.to_string(),
             street: "Tellstrasse".to_string(),
@@ -40,9 +40,7 @@ pub fn some_qr_as_image(data: QrData) -> QRBill {
         top_line: true,
         payment_line: true,
     })
-    .unwrap();
-
-    qrbill
+    .unwrap()
 }
 
 pub struct QrData {

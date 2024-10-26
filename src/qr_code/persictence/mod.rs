@@ -25,7 +25,7 @@ impl QrCodeInMemoryDb {
         let codes = self.qr_codes.lock().await;
         codes.get(&id).cloned()
     }
-    
+
     #[allow(unused)]
     pub async fn get_debug(&self, id: String) -> Option<String> {
         let codes = self.debug_qr_codes.lock().await;
