@@ -1,12 +1,6 @@
 
 
-.qr-table{
-    overflow-y: auto;
-}
-.fixed-container{
-    height: 300px;
-    padding-bottom: 3px;
-}
+
 
 .qr-container{
     padding-bottom: 30px;
@@ -20,7 +14,7 @@
 
 .qrcode{
     margin-top: 10px;
-    width: 300px;
+    width: 700px;
     height: 300px;
 }
 

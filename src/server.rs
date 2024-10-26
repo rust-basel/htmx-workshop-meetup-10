@@ -16,8 +16,9 @@ pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
     println!("listening at: {}", binding.green());
 
     let db = QrCodeInMemoryDb::new();
-    let (id, code) = qr_code::endpoints::create_image(QrData::test_code()).await;
+    let (id, code, debug) = qr_code::endpoints::create_image(QrData::test_code()).await;
     db.set(id.clone(), code).await;
+    db.set_debug(id.clone(), debug).await;
 
     let app = Router::new()
         .nest("/", make_api())
@@ -39,5 +40,4 @@ fn make_api() -> Router<QrCodeInMemoryDb> {
         .route("/", get(qr_code::endpoints::page))
         .route("/qrcodes", get(qr_code::endpoints::qr_code_as_picture))
         .route("/qrcodes", post(qr_code::endpoints::create))
-        .route("/qr_table", get(qr_code::endpoints::get_table))
 }

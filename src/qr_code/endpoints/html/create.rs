@@ -4,7 +4,7 @@ use serde::Deserialize;
 use uuid::Uuid;
 
 use crate::qr_code::{
-    core::{some_qr_as_image, Amount, Currency, Iban, QrCodeImage, QrData},
+    core::{some_qr_as_image, Amount, QrCodeImage, QrData, SimpleCurrency, SimpleIban},
     persictence::QrCodeInMemoryDb,
 };
 
@@ -35,8 +35,9 @@ pub async fn create(
         }
     };
 
-    let (id, code) = create_image(data).await;
+    let (id, code, debug) = create_image(data).await;
     db.set(id.clone(), code).await;
+    db.set_debug(id.clone(), debug).await;
 
     let string = CreatedQrTemplate {
         qr_code: Some(id.as_str()),
@@ -50,10 +51,10 @@ impl TryFrom<CreateQrForm> for QrData {
     type Error = anyhow::Error;
 
     fn try_from(value: CreateQrForm) -> Result<Self, Self::Error> {
-        let iban: Iban = value.iban.try_into()?;
+        let iban: SimpleIban = value.iban.try_into()?;
         let name: String = value.qr_code_name;
         let amount: Amount = value.qrcode_amount.into();
-        let currency: Currency = value.currency.try_into()?;
+        let currency: SimpleCurrency = value.currency.try_into()?;
 
         Ok(Self {
             iban,
@@ -64,8 +65,10 @@ impl TryFrom<CreateQrForm> for QrData {
     }
 }
 
-pub async fn create_image(data: QrData) -> (String, QrCodeImage) {
+pub async fn create_image(data: QrData) -> (String, QrCodeImage, String) {
     let id = Uuid::new_v4().to_string();
     let code = some_qr_as_image(data);
-    (id, code)
+    let svg = code.create_svg(false).unwrap();
+    let debug = code.qr_data();
+    (id, svg.into(), debug)
 }

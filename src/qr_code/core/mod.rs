@@ -1,95 +1,55 @@
 use anyhow::anyhow;
-use image::{ImageBuffer, Luma};
-use qrcode::QrCode;
+use qrbill::{Address, Currency, Iban, QRBill, QRBillOptions, Reference, StructuredAddress};
 use regex::Regex;
 
 #[derive(Clone)]
-pub struct QrCodeImage(pub ImageBuffer<Luma<u8>, Vec<u8>>);
+pub struct QrCodeImage(pub String);
 
-impl From<ImageBuffer<Luma<u8>, Vec<u8>>> for QrCodeImage {
-    fn from(value: ImageBuffer<Luma<u8>, Vec<u8>>) -> Self {
+impl From<String> for QrCodeImage {
+    fn from(value: String) -> Self {
         QrCodeImage(value)
     }
 }
 
-pub fn some_qr_as_image(data: QrData) -> QrCodeImage {
-    let spc = "SPC";
-    let version = "0200";
-    let char_set = "1";
-    let iban = data.iban.raw;
-    let sct = "S";
-    let name = data.name.clone();
-    let street = "street";
-    let street_num = "14";
-    let plz = "4104";
-    let city = "Basel";
-    let country = "CH";
-    let amount = format!("{:.1}", data.amount.raw);
-    let currency = data.currency.raw;
-    let all_other = r"S
-Pia-Maria Rutschmann-Schnyder
-Grosse Marktgasse
-28
-9400
-Rorschach
-CH
-QRR
-210000000003139471430009017
-Instruction of 03.04.2019
-EPD
-//S1/10/10201409/11/190512/20/1400.000-53/30/106017086/31/180508/32/7.7/40/2:10;0:30
-Name AV1: UV;UltraPay005;12345
-Name AV2: XY;XYService;54321";
+pub fn some_qr_as_image(data: QrData) -> QRBill {
+    let c = data.currency.raw;
+    let qr_currency = match c.as_str() {
+        "CHF" => Currency::SwissFranc,
+        "EUR" => Currency::Euro,
+        _ => Currency::SwissFranc,
+    };
 
-    let line = "\n";
+    let qrbill = QRBill::new(QRBillOptions {
+        account: String::from(data.iban.raw).parse::<Iban>().unwrap(),
+        creditor: Address::Structured(StructuredAddress {
+            name: data.name.to_string(),
+            street: "Tellstrasse".to_string(),
+            house_number: "66".to_string(),
+            postal_code: "4053".to_string(),
+            city: "Basel".to_string(),
+            country: isocountry::CountryCode::CHE,
+        }),
+        amount: Some(data.amount.raw),
+        currency: qr_currency,
+        due_date: None,
+        debtor: None,
+        reference: Reference::None,
+        extra_infos: None,
+        alternative_processes: vec![],
+        language: qrbill::Language::German,
+        top_line: true,
+        payment_line: true,
+    })
+    .unwrap();
 
-    let mut s = String::new();
-    s.push_str(spc);
-    s.push_str(line);
-    s.push_str(version);
-    s.push_str(line);
-    s.push_str(char_set);
-    s.push_str(line);
-    s.push_str(&iban);
-    s.push_str(line);
-    s.push_str(sct);
-    s.push_str(line);
-    s.push_str(&name);
-    s.push_str(line);
-    s.push_str(&street);
-    s.push_str(line);
-    s.push_str(&street_num);
-    s.push_str(line);
-    s.push_str(&plz);
-    s.push_str(line);
-    s.push_str(&city);
-    s.push_str(line);
-    s.push_str(&country);
-    s.push_str(line);
-    s.push_str(line);
-    s.push_str(line);
-    s.push_str(line);
-    s.push_str(line);
-    s.push_str(line);
-    s.push_str(line);
-    s.push_str(line);
-    s.push_str(&amount);
-    s.push_str(line);
-    s.push_str(&currency);
-    s.push_str(line);
-    s.push_str(all_other);
-
-    println!("{}", &s);
-
-    let code = QrCode::new(&s).unwrap();
-    code.render::<Luma<u8>>().build().into()
+    qrbill
 }
 
 pub struct QrData {
-    pub iban: Iban,
+    pub iban: SimpleIban,
     pub name: String,
     pub amount: Amount,
-    pub currency: Currency,
+    pub currency: SimpleCurrency,
 }
 
 impl QrData {
@@ -103,11 +63,11 @@ impl QrData {
     }
 }
 
-pub struct Iban {
+pub struct SimpleIban {
     raw: String,
 }
 
-impl TryFrom<String> for Iban {
+impl TryFrom<String> for SimpleIban {
     type Error = anyhow::Error;
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
@@ -121,20 +81,20 @@ impl TryFrom<String> for Iban {
 }
 
 pub struct Amount {
-    raw: f32,
+    raw: f64,
 }
 
 impl From<f32> for Amount {
     fn from(value: f32) -> Self {
-        Self { raw: value }
+        Self { raw: value.into() }
     }
 }
 
-pub struct Currency {
+pub struct SimpleCurrency {
     raw: String,
 }
 
-impl TryFrom<String> for Currency {
+impl TryFrom<String> for SimpleCurrency {
     type Error = anyhow::Error;
 
     fn try_from(value: String) -> Result<Self, Self::Error> {

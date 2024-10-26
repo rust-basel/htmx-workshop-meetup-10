@@ -12,23 +12,26 @@
 
    <h2>Qr code generator</h2>
     <div>
+        
+       
 
     <div class="qr-container">
         <div id="qr_code_image">
             {% if let Some(qr_code) = qr_code %}
             <img class="qrcode" src="/qrcodes?id={{ qr_code }}" alt="{{ qr_code }}" >
+                
             {% else %}
-            No qr code
+            <img class="qrcode" src="https://htmx.org/img/memes/original.png" >
             {% endif %}
         </div>
-
+        
         <form
                 class='outline generate-form'
                 hx-post="/qrcodes"
                 hx-target="#qr_code_image"
                 hx-swap="inneHTML"
         >
-
+    
             <label for="qrcode-name">
                 IBAN
             </label>
@@ -74,44 +77,17 @@
                 placeholder="no effect yet"
                 required ="true"
             >
-
+    
             <button
                    type="submit"
             >
                 Generate
             </button>
         </form>
+        
     </div>
     
-    
-    <article>
-        <header>
-            <h2>Qr codes</h2>
-        </header>
-        <body>
-            <table id="qr_code_header" class="header-table">
-                <tr>
-                    <th scope="col">Id</th>
-                </tr>
-            </table>
-            <div class="overflow-auto fixed-container">
-                <table id="qr_code_table"
-                    hx-ext ="alpine-morph"
-                       hx-get="/qr_table"
-                       hx-trigger="load delay:1s"
-                       hx-swap="morph"
-                       class="qr-table"
-                >
-                </table>
-            </div>
-        </body>
 
-    </article>
-       
-    
-  
-
-        
     </div>
 </main>
 <footer class="container"> Rust Basel Workshop 10</footer>
