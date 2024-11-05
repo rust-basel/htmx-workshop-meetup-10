@@ -9,5 +9,5 @@
 - [Server Side Rendering](./server_side_rendering/general.md)
   - [Askama](./server_side_rendering/askama.md)
 - [Htmx](./htmx/general.md)
-  - [Why HTMX?](./hmtx/htmx_intro.md)
-  - [HTMX samples](./hmtx/htmx_samples.md)
+  - [Why HTMX?](./htmx/htmx_intro.md)
+  - [HTMX samples](./htmx/htmx_samples.md)
