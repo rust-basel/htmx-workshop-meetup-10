@@ -23,10 +23,8 @@ askama = { version = "0.12.1" }
 serde = { version = "1.0", features = ["derive"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
-colored = "2"
 anyhow= "1"
 lazy_static = "1"
-qrcode = "0.14.1"
 image = "0.25.2"
 mime = "0.3"
 async-trait = "0.1.83"

@@ -5,13 +5,11 @@ pub mod qr_code;
 pub mod server;
 pub mod technical_endpoints;
 
-use colored::Colorize;
-
 #[tokio::main]
 async fn main() {
     match start().await {
         Ok(_) => println!("finished run with no errors"),
-        Err(err) => println!("{}", err.to_string().red()),
+        Err(err) => println!("{}", err),
     }
 }
 
