@@ -19,19 +19,24 @@ authors=[
 [dependencies]
 axum = {version = "0.7.5", features = ["json"]}
 tokio = { version = "1.0", features = ["full"] }
+tower-http = {version = "0.6.1", features = ["fs"]}
+async-trait = "0.1.83"
+
 askama = { version = "0.12.1" }
+
 serde = { version = "1.0", features = ["derive"] }
+
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
 anyhow= "1"
 mime = "0.3"
-async-trait = "0.1.83"
+
 uuid = {version ="1.10.0", features = [
     "v4",                # Lets you generate random UUIDs
     "fast-rng",          # Use a faster (but still sufficiently random) RNG
-    "macro-diagnostics", # Enable better diagnostics for compile-time UUIDs
 ] }
-tower-http = {version = "0.6.1", features = ["fs"]}
+
 regex = "1.11"
 qrbill = { git = "https://github.com/bar9/qrbill.git"}
 isocountry = "0.3.2"
