@@ -15,7 +15,7 @@ To add state in axum we have to options:
 - `Extension`: Not typesafe - i.e will fail at runtime
 
 We will use State here. To add a state, you can call the `.with_state()` at the
-end of your `Router Builder`. We will just put a HashMap for learning reason. Usually you would
+end of your `Router Builder`. We will just put a HashMap for learning reason (It's wrapped in an `Arc<Mutex<_>>`, so we can share it between threads). Usually you would
 give a handle to a database pool - which the handler then can use to
 make queries and insertions to a database.
 
@@ -58,10 +58,11 @@ async fn add_person_handler(
 }
 ```
 
-Let's write a small handler to receive all of our current person - but this is a small challenge for you ;).
+Let's write a small handler to receive all of our current person - but this time as a small challenge for you ;).
 
-## Task:
+## Your Task
 
+- Go into the project `snippets/axum/state` and open your IDE of choice there.
 - Write a handler, that returns a list of `Person` as Json, when you call `GET /persons`. Of course the list
   will only be filled up, if you posted some persons
 - We already gave you a small starter here:
@@ -73,7 +74,9 @@ pub async fn get_all_persons_handler(State(db): State<InMemoryDb>) -> impl IntoR
 }
 ```
 
-_Hint_: You can add persons with this curl command:
+- run `cargo test` to verify you implemented the handler correctly
+
+_Hint_: You can also test your webserver afterwards with `cargo run`. To add persons with this curl command:
 
 ```sh
 curl --header "Content-Type: application/json" --request POST --data '{"name":"Hans"}' http://localhost:3000/persons
