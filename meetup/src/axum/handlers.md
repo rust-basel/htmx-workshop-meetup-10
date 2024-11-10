@@ -26,3 +26,6 @@ A handler in axum is just an ordinary asynchronous free function (`hello_world_h
 To look what this means, you would have to look into the definition of `IntoResponse`. Fow now, it's sufficient to know, that it returns a payload and a status code.
 
 For this example our handler returns a string literal, which will be converted in a http response of with payload of type `text/plain` with status code 200.
+
+If you want to run the code, you can go to project in the snippets directory `snippets/axum/handlers` and run the project with
+`cargo run`.
