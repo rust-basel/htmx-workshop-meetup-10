@@ -3,7 +3,8 @@
 In the chapter before you are only able to answer to client requests, that do not contain any payload. But there must be a way to send our small little server a payload.
 
 For example:
- A server, that has some sort of user management, you want to add a new person to your database at some point in time.
+
+- A server, that has some sort of user management, you want to add a new person to your database at some point in time.
 
 This is done by so called _extractors_. The incoming request is parsed, and if it for example contains a JSON payload, you have a JSON extractor, that parses that JSON.
 After parsing you then can work on the data contained in the JSON.
@@ -15,6 +16,8 @@ There are also different extractors, which are ready to use. That would be for e
 - For forms: You can directly parse a form in a handler - that will come handy later for our workshop.
 
 You can also write your own extractor, if you need to. But this is out of scope for now (If you are interested, have a look at [axum's docs](https://docs.rs/axum/latest/axum/extract/index.html).
+
+## Extracting Json
 
 Below is a small snippet, where we explain, how for example a _JSON_ extractor in axum looks like, that extracts the JSON payload from the incoming request.
 
@@ -70,3 +73,26 @@ curl --header "Content-Type: application/json" --request POST --data '{"name":"H
 As with the _hello_world_handler_ from before, we can return anything from a handler, that implements _IntoResponse_, which axum's `Json<T>(T)` is doing.
 
 We just echo the payload inside the handler and add an `id` to it, which a normal server would do, after creating a ressource in a database to confirm creation of the new ressource.
+
+## Task
+
+You have seen above, how you can echo a Json. Let's do it - but with a form this time!
+Write a handler, that accepts a form instead of a Json - and just echoes the data you have provided. You can go to
+`snippets/axum/extraction`. There is already the boilerplate for you at hand.
+
+- Go ahead and try to implement the following function
+
+```rust
+// TODO: You have to implement this one :)
+async fn my_form(Form(form): Form<MyForm>) -> impl IntoResponse {
+    todo!()
+}
+```
+
+- If you think you implemented it correctly, you can run `cargo test`.
+
+_Hint_: You can also provide form data with curl with the following command:
+
+```sh
+curl -X POST -d "name=SomeName&age=44" localhost:3000/submit
+```

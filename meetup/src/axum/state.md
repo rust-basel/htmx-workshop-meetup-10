@@ -26,7 +26,7 @@ async fn main() {
     let in_memory_db = Arc::new(Mutex::new(persons));
 
     let router = Router::new()
-        .route("/person", post(add_person_handler))
+        .route("/persons", post(add_person_handler))
         .with_state(in_memory_db);
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
