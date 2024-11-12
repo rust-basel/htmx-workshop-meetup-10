@@ -31,6 +31,6 @@ pub async fn add_user<T: Repository>(
     State(mut repo): State<T>,
     Json(user): Json<UserToCreate>,
 ) -> impl IntoResponse {
-    let user = repo.add_user(user).await;
+    let user = repo.add_user(&user).await;
     Json(user)
 }
