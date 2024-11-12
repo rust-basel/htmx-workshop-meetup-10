@@ -15,6 +15,6 @@ async fn main() {
 
 pub async fn start() -> anyhow::Result<()> {
     let (listener, app) = create_server().await?;
-    axum::serve(listener, app).await.unwrap();
+    axum::serve(listener, app).await?;
     Ok(())
 }

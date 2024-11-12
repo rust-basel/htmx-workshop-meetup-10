@@ -24,7 +24,7 @@ pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
         .with_state(db)
         .nest("/", assets());
 
-    let listener = tokio::net::TcpListener::bind(binding).await.unwrap();
+    let listener = TcpListener::bind(binding).await?;
 
     Ok((listener, app))
 }

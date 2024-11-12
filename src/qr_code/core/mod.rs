@@ -69,7 +69,7 @@ impl TryFrom<String> for SimpleIban {
     type Error = anyhow::Error;
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
-        let reg = Regex::new(r"^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$").unwrap();
+        let reg = Regex::new(r"^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$")?;
         if reg.is_match(&value) {
             Ok(Self { raw: value })
         } else {
@@ -96,7 +96,7 @@ impl TryFrom<String> for SimpleCurrency {
     type Error = anyhow::Error;
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
-        let reg = Regex::new(r"[A-Za-z]{3}").unwrap();
+        let reg = Regex::new(r"[A-Za-z]{3}")?;
         if reg.is_match(&value) {
             Ok(Self { raw: value })
         } else {
