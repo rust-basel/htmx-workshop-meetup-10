@@ -1,6 +1,6 @@
 use std::collections::HashMap;
+use std::sync::atomic::{AtomicI64, Ordering};
 use std::sync::Arc;
-
 use tokio::sync::Mutex;
 
 use super::core::QrCodeImage;
@@ -9,6 +9,7 @@ use super::core::QrCodeImage;
 pub struct QrCodeInMemoryDb {
     pub(crate) qr_codes: Arc<Mutex<HashMap<String, QrCodeImage>>>,
     pub(crate) debug_qr_codes: Arc<Mutex<HashMap<String, String>>>,
+    pub(crate) game_state: Arc<AtomicI64>,
 }
 
 impl QrCodeInMemoryDb {
@@ -16,6 +17,7 @@ impl QrCodeInMemoryDb {
         Self {
             qr_codes: Arc::new(Mutex::new(HashMap::new())),
             debug_qr_codes: Arc::new(Mutex::new(HashMap::new())),
+            game_state: Arc::new(AtomicI64::new(0)),
         }
     }
 }
@@ -49,5 +51,19 @@ impl QrCodeInMemoryDb {
     pub async fn keys(&self) -> Vec<String> {
         let codes = self.qr_codes.lock().await;
         codes.keys().cloned().collect()
+    }
+}
+
+impl QrCodeInMemoryDb {
+    pub async fn increment(&self) -> i64 {
+        self.game_state.fetch_add(1, Ordering::Relaxed)
+    }
+
+    pub async fn decrement(&self) -> i64 {
+        self.game_state.fetch_sub(1, Ordering::Relaxed)
+    }
+
+    pub async fn get_game_state(&self) -> i64 {
+        self.game_state.load(Ordering::Relaxed)
     }
 }

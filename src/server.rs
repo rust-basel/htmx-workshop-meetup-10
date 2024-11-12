@@ -39,4 +39,8 @@ fn make_api() -> Router<QrCodeInMemoryDb> {
         .route("/", get(qr_code::endpoints::page))
         .route("/qrcodes", get(qr_code::endpoints::qr_code_as_picture))
         .route("/qrcodes", post(qr_code::endpoints::create))
+        .route("/game", get(qr_code::endpoints::game_view))
+        .route("/game/inc", post(qr_code::endpoints::inc))
+        .route("/game/dec", post(qr_code::endpoints::dec))
+        .route("/game/current", get(qr_code::endpoints::current))
 }

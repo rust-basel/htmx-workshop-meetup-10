@@ -23,11 +23,11 @@ tower-http = {version = "0.6.1", features = ["fs"]}
 async-trait = "0.1.83"
 
 askama = { version = "0.12.1" }
+maud = "0.26.0"
 
 serde = { version = "1.0", features = ["derive"] }
 
-tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
 
 anyhow= "1"
 mime = "0.3"
