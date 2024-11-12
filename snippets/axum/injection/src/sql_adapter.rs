@@ -21,13 +21,24 @@ impl SqliteAdapter {
 #[async_trait]
 impl Repository for SqliteAdapter {
     async fn add_user(&mut self, user: &UserToCreate) -> User {
-        todo!()
+        sqlx::query_as(r#"INSERT INTO users (name) VALUES ($1) RETURNING *"#)
+            .bind(&user.name)
+            .fetch_one(&self.pool)
+            .await
+            .expect("Failed to insert user")
     }
     async fn remove_user(&mut self, id: i64) -> Option<User> {
-        todo!()
+        sqlx::query_as(r#"DELETE FROM users WHERE id = ? RETURNING *"#)
+            .bind(id)
+            .fetch_optional(&self.pool)
+            .await
+            .expect("Failed to delete user")
     }
     async fn get_users(&self) -> Vec<User> {
-        todo!()
+        sqlx::query_as(r#"SELECT * FROM users"#)
+            .fetch_all(&self.pool)
+            .await
+            .expect("Failed to get users")
     }
 }
 

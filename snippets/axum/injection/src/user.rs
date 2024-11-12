@@ -1,4 +1,4 @@
-use crate::repository::{Repository, User, UserToCreate};
+use crate::repository::{Repository, UserToCreate};
 use axum::http::StatusCode;
 use axum::routing::{delete, get};
 use axum::{
