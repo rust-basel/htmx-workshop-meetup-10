@@ -1,0 +1,10 @@
+[package]
+name = "injection"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7.7"
+sqlx = { version = "0.8.2", features = ["sqlite", "runtime-tokio-rustls"] }
+tokio = { version = "1.41.1", features = ["full"] }
+serde = { version = "1.0.215", features = ["derive"] }
