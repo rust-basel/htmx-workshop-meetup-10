@@ -12,6 +12,8 @@ impl From<String> for QrCodeImage {
 }
 
 pub fn some_qr_as_image(data: QrData) -> QRBill {
+    let name = html_escape::encode_text(data.name.as_str()).into_owned();
+
     let c = data.currency.raw;
     let qr_currency = match c.as_str() {
         "CHF" => Currency::SwissFranc,
@@ -22,7 +24,7 @@ pub fn some_qr_as_image(data: QrData) -> QRBill {
     QRBill::new(QRBillOptions {
         account: data.iban.raw.parse::<Iban>().unwrap(),
         creditor: Address::Structured(StructuredAddress {
-            name: data.name.to_string(),
+            name,
             street: "Tellstrasse".to_string(),
             house_number: "66".to_string(),
             postal_code: "4053".to_string(),

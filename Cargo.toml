@@ -38,6 +38,7 @@ uuid = {version ="1.10.0", features = [
 regex = "1.11"
 qrbill = { git = "https://github.com/bar9/qrbill.git"}
 isocountry = "0.3.2"
+html-escape = "0.2.13"
 
 [profile.dev.package."*"]
 opt-level = 1
