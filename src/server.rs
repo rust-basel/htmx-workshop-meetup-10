@@ -6,7 +6,7 @@ use axum::{
 };
 use tokio::net::TcpListener;
 
-use crate::qr_code::{self, core::QrData};
+use crate::qr_code::{self};
 use crate::{assets, qr_code::persictence::QrCodeInMemoryDb, technical_endpoints::healthz};
 
 pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
@@ -15,9 +15,6 @@ pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
     println!("listening at: {}", binding);
 
     let db = QrCodeInMemoryDb::new();
-    let (id, code, debug) = qr_code::endpoints::create_image(QrData::test_code()).await;
-    db.set(id.clone(), code).await;
-    db.set_debug(id.clone(), debug).await;
 
     let app = Router::new()
         .nest("/", make_api())
@@ -37,9 +34,11 @@ fn make_api() -> Router<QrCodeInMemoryDb> {
     Router::new()
         .route("/healthz", get(healthz))
         .route("/", get(qr_code::endpoints::page))
-        .route("/qrcodes", get(qr_code::endpoints::qr_code_as_picture))
-        .route("/debug", get(qr_code::endpoints::qr_code_debug))
+        // qr code endpoints
+        .route("/qrcodes", get(qr_code::endpoints::image))
         .route("/qrcodes", post(qr_code::endpoints::create))
+        .route("/debug", get(qr_code::endpoints::debug))
+        // game endpoints
         .route("/game", get(qr_code::endpoints::game_view))
         .route("/game/inc", post(qr_code::endpoints::inc))
         .route("/game/dec", post(qr_code::endpoints::dec))

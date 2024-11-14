@@ -7,25 +7,21 @@
 <head>
     <title>Qr code generator</title>
 </head>
+
 <body id="full_body">
+    
 <main class="container">
 
    <h2>Qr code generator</h2>
-    <div>
-        
-       
-
+   
+<div>
     <div class="qr-container">
+        
         <div id="qr_code_image">
             <img class="qrcode" src="https://htmx.org/img/memes/bellcurve2.png" >
         </div>
         
-        <form
-                class='outline generate-form'
-                hx-post="/qrcodes"
-                hx-target="#qr_code_image"
-                hx-swap="inneHTML"
-        >
+        <form class='outline generate-form' hx-post="/qrcodes" hx-target="#qr_code_image" hx-swap="inneHTML">
     
             <label for="qrcode-name">
                 IBAN
@@ -74,28 +70,20 @@
                 required ="true"
             >
     
-            <button
-                   type="submit"
-            >
+            <button type="submit">
                 Generate
             </button>
         </form>
-
-
     </div>
-    
-
-    </div>
+</div>
     
     
-        
-  
+                <h5>Little game</h5>
+                <div hx-get="/game" hx-trigger="load" >
 
-    <h5>Little game</h5>
-    <div hx-get="/game" hx-trigger="load" >
-
-    </div>
+                </div>
 </main>
+
 <footer class="container"> Rust Basel Workshop 10</footer>
 </body>
 </html>

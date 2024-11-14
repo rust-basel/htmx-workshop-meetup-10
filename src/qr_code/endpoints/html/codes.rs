@@ -6,14 +6,15 @@ use axum::{
     response::IntoResponse,
 };
 
+use crate::qr_code::endpoints::QrId;
 use crate::qr_code::persictence::QrCodeInMemoryDb;
 
-pub async fn qr_code_as_picture(
+pub async fn image(
     State(db): State<QrCodeInMemoryDb>,
-    qr_code_id: Query<super::QrId>,
+    qr_code_id: Query<QrId>,
 ) -> impl IntoResponse {
-    // TODO handle unwrap
-    let id = qr_code_id.id.clone().unwrap();
+    let id = qr_code_id.id.to_owned();
+
     let Some(image) = db.get(id).await else {
         return StatusCode::NOT_FOUND.into_response();
     };
@@ -22,17 +23,16 @@ pub async fn qr_code_as_picture(
         .header(header::CONTENT_TYPE, mime::IMAGE_SVG.as_ref())
         .header("HX-Trigger", "update_debug")
         .body(Body::from(image.0))
-        .unwrap();
+        .expect("could not parse headers");
 
     response
 }
 
-pub async fn qr_code_debug(
+pub async fn debug(
     State(db): State<QrCodeInMemoryDb>,
-    qr_code_id: Query<super::QrId>,
+    qr_code_id: Query<QrId>,
 ) -> impl IntoResponse {
-    // TODO handle unwrap
-    let id = qr_code_id.id.clone().unwrap();
+    let id = qr_code_id.id.to_owned();
 
     let Some(debug) = db.get_debug(id).await else {
         return StatusCode::NOT_FOUND.into_response();
@@ -41,7 +41,7 @@ pub async fn qr_code_debug(
     let response = Response::builder()
         .header(header::CONTENT_TYPE, mime::TEXT.as_ref())
         .body(Body::from(debug))
-        .unwrap();
+        .expect("could not parse headers");
 
     response
 }

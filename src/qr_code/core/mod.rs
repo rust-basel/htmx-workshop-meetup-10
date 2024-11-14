@@ -50,17 +50,6 @@ pub struct QrData {
     pub currency: SimpleCurrency,
 }
 
-impl QrData {
-    pub fn test_code() -> Self {
-        Self {
-            iban: "CH5604835012345678009".to_owned().try_into().unwrap(),
-            name: "Rust Basel".to_owned(),
-            amount: 200.0.into(),
-            currency: "CHF".to_owned().try_into().unwrap(),
-        }
-    }
-}
-
 pub struct SimpleIban {
     raw: String,
 }
