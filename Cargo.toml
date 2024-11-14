@@ -11,8 +11,8 @@ authors=[
 "Yasin Gündüz https://github.com/yguenduez",
 "Roland Brand - https://github.com/bar9",
 "Silen Locatelli - https://github.com/SilenLoc",
+"Rust Basel - https://rust-basel.ch/"
 ]
-
 
 
 
@@ -20,21 +20,19 @@ authors=[
 axum = {version = "0.7.5", features = ["json"]}
 tokio = { version = "1.0", features = ["full"] }
 tower-http = {version = "0.6.1", features = ["fs"]}
-async-trait = "0.1.83"
+serde = { version = "1.0", features = ["derive"] }
+mime = "0.3"
 
+# html templating
 askama = { version = "0.12.1" }
 maud = "0.26.0"
 
-serde = { version = "1.0", features = ["derive"] }
-
-
 
 anyhow= "1"
-mime = "0.3"
 
 uuid = {version ="1.10.0", features = [
-    "v4",                # Lets you generate random UUIDs
-    "fast-rng",          # Use a faster (but still sufficiently random) RNG
+    "v4",
+    "fast-rng", 
 ] }
 
 regex = "1.11"
