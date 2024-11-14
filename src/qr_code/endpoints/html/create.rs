@@ -29,8 +29,7 @@ pub async fn create(
     // just create one for now
     let data = match create_data.try_into() {
         Ok(d) => d,
-        Err(e) => {
-            println!("QrCode error: {e}");
+        Err(_) => {
             return Err(StatusCode::BAD_REQUEST);
         }
     };
@@ -38,8 +37,6 @@ pub async fn create(
     let (id, code, debug) = create_image(data).await;
     db.set(id.clone(), code).await;
     db.set_debug(id.clone(), debug.clone()).await;
-
-    println!("Created qr code: {debug}");
 
     let string = CreatedQrTemplate {
         qr_code: Some(id.as_str()),
