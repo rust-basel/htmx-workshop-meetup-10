@@ -48,13 +48,6 @@ impl QrCodeInMemoryDb {
 }
 
 impl QrCodeInMemoryDb {
-    pub async fn keys(&self) -> Vec<String> {
-        let codes = self.qr_codes.lock().await;
-        codes.keys().cloned().collect()
-    }
-}
-
-impl QrCodeInMemoryDb {
     pub async fn increment(&self) -> i64 {
         self.game_state.fetch_add(1, Ordering::Relaxed)
     }
