@@ -20,6 +20,7 @@
             {% if let Some(qr_code) = qr_code %}
             <img class="qrcode" src="/qrcodes?id={{ qr_code }}" alt="{{ qr_code }}" >
                 
+                
             {% else %}
             <img class="qrcode" src="https://htmx.org/img/memes/bellcurve2.png" >
             {% endif %}
@@ -91,6 +92,10 @@
     
 
     </div>
+    
+    
+        
+  
 
     <h5>Little game</h5>
     <div hx-get="/game" hx-trigger="load" >

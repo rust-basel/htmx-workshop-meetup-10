@@ -9,6 +9,7 @@ pub use html::game_view;
 pub use html::inc;
 pub use html::page;
 pub use images::qr_code_as_picture;
+pub use images::qr_code_debug;
 
 use serde::Deserialize;
 
