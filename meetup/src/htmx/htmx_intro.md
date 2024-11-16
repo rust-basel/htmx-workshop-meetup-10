@@ -26,9 +26,7 @@ No, but the browser can convert:
 </button>
 ```
 
-to:
-
-// todo add picture of the button
+to a Button
 
 ## Attributes over javascript
 
