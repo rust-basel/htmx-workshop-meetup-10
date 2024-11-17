@@ -7,9 +7,9 @@ how your state is stored. It might be an SQL like database, a file, or something
 In the end you are only interested in "storing" your state. But how - is a matter of detail,
 that we are now going to abstract away.
 
-Currently we have this dependency tree:
+Currently, we have this dependency tree (left) - but we want to invert the dependency (right):
 
-// TODO: Show UML/PNG with business logic directly depending on our HashMap Storage
+![img.png](assets/dependency_inversion.png)
 
 Here you do not have to code anything - we just wanted you to show, how a production style
 rust webserver could look like. The code for it is in `snippets/injection`. You can run the unit tests with
