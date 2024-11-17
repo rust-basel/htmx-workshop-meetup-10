@@ -6,6 +6,7 @@
   - [Handlers](./axum/handlers.md)
   - [Extraction](./axum/extraction.md)
   - [State](./axum/state.md)
+  - [Dependency Injection](./axum/dependency_injection.md)
 - [Server Side Rendering](./server_side_rendering/general.md)
   - [Askama](./server_side_rendering/askama.md)
 - [Htmx](./htmx/general.md)
