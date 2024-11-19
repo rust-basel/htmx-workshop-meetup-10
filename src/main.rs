@@ -7,14 +7,12 @@ pub mod technical_endpoints;
 
 #[tokio::main]
 async fn main() {
-    match start().await {
-        Ok(_) => println!("finished run with no errors"),
-        Err(err) => println!("{}", err),
-    }
+    start().await
 }
 
-pub async fn start() -> anyhow::Result<()> {
-    let (listener, app) = create_server().await?;
-    axum::serve(listener, app).await?;
-    Ok(())
+pub async fn start() {
+    let (listener, app) = create_server().await.expect("could not create server");
+    axum::serve(listener, app)
+        .await
+        .expect("could not start server");
 }
