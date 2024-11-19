@@ -27,7 +27,10 @@ pub async fn create_server() -> anyhow::Result<(TcpListener, Router)> {
 }
 
 fn assets() -> Router {
-    Router::new().nest_service("/_assets", assets::using_serve_dir())
+    Router::new()
+        .route("/_assets/htmx.min.js", get(assets::include_htmx))
+        .route("/_assets/app.css", get(assets::include_app_css))
+        .route("/_assets/pico.min.css", get(assets::include_pico_css))
 }
 
 fn make_api() -> Router<QrCodeInMemoryDb> {
