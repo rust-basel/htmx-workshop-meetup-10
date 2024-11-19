@@ -31,3 +31,6 @@ fmt:
     
 book:
     mdbook serve meetup
+
+deploy:
+    shuttle deploy
