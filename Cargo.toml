@@ -40,5 +40,8 @@ qrbill = { git = "https://github.com/bar9/qrbill.git"}
 isocountry = "0.3.2"
 html-escape = "0.2.13"
 
+shuttle-axum = "0.48.0"
+shuttle-runtime = "0.48.0"
+
 [profile.dev.package."*"]
 opt-level = 1

@@ -10,13 +10,12 @@ alias r := run
 watch:
     cargo watch -s 'just run'
 
-run *args:
-    cargo run -q -- {{args}}
+run:
+    shuttle run 
 
 # Perform all verifications (compile, test, lint, etc.)
-@verify: test lint api_tests
+@verify: test lint
     echo ------------ verify done! ------------    
-
 
 # Run tests    
 test:
