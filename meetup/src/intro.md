@@ -24,7 +24,4 @@ we will hop on to the second part.
 In the second part of the workshop you will build something yourself, without further guidance.
 Of course we will help if you get stuck somewhere. Getting your hands dirty is the best way to learn.
 
-Of course you can mix and match server frameworks and rendering engines. But if you just want
-to get started on implementing features and using htmx, we recommend you to use our [skeleton](#).
-
-It already has all the boilerplate code - and you can focus on using htmx.
+You can mix and match server frameworks and rendering engines.
