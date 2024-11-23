@@ -6,7 +6,7 @@ In this chapter, we will explore what makes Askama unique and learn how to use i
 
 ```html
 <head>
-    <title>{{ title | upper }}</title>
+    <title>{{ title|upper }}</title>
 </head>
 <body>
     <h1>Hello, {{ user.name }}!</h1>
@@ -82,10 +82,10 @@ The same is true for Tera.
 | **Loops**                 | `{% for item in items %}<li>{{ item }}</li>{% endfor %}`                | `{% for item in items %}<li>{{ item }}</li>{% endfor %}`               |
 | **Includes**              | `{% include "header.html" %}`                                           | `{% include "header.html" %}`                                          |
 | **Template inheritance**  | `{% extends "base.html" %}{% block content %}Hello{% endblock %}`       | `{% extends "base.html" %}{% block content %}Hello{% endblock %}`      |
-| **Filters**               | `{{ name \| upper }}`                                                   | `{{ name \| upper }}`                                                  |
+| **Filters**               | `{{ name\|upper }}`                                                     | `{{ name \| upper }}`                                                  |
 | **Macros**                | `{% macro greet(name) %}Hello, {{ name }}!{% endmacro %}`               | `{% macro greet(name) %}Hello, {{ name }}!{% endmacro %}`              |
-| **Match-like structures** | `{% match status %}{% when "success" %}OK{% else %}Error{% endmatch %}` | *Not available directly in Jinja2 (requires custom filters or logic)*  |
-| **Rust-specific syntax**  | `{% if let Some(value) = optional %}{{ value }}{% endif %}`             | *Not available directly in Jinja2 (requires pre-processing in Python)* |
+| **Match-like structures** | `{% match status %}{% when "success" %}OK{% else %}Error{% endmatch %}` |  |
+| **Rust-specific syntax**  | `{% if let Some(value) = optional %}{{ value }}{% endif %}`             | |
 
 ## How-to
 This section provides a step-by-step guide to using Askama in your projects.
@@ -199,9 +199,10 @@ Askama supports Rust's `if let` and `match` expressions for more complex logic:
 {% endif %}
 
 {% match status %}
-    {% when "success" %}<p>Success!</p>{% endmatch %}
-    {% when "error" %}<p>Error occurred.</p>{% endmatch %}
-    {% else %}<p>Unknown status.</p>{% endmatch %}
+    {% when "success" %}<p>Success!</p>
+    {% when "error" %}<p>Error occurred.</p>
+    {% else %}<p>Unknown status.</p>
+{% endmatch %}
 ```
 
 ### Use Filters
