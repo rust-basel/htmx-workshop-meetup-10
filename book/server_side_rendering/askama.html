@@ -1,0 +1,467 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js oranda-dark">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Askama - Meetup</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" href="../oranda-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "oranda-dark" : "oranda-dark";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('orandamdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('orandamdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('orandamdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('oranda-dark')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="../axum/general.html"><strong aria-hidden="true">2.</strong> Axum</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../axum/axum.html"><strong aria-hidden="true">2.1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="../axum/handlers.html"><strong aria-hidden="true">2.2.</strong> Handlers</a></li><li class="chapter-item expanded "><a href="../axum/extraction.html"><strong aria-hidden="true">2.3.</strong> Extraction</a></li><li class="chapter-item expanded "><a href="../axum/state.html"><strong aria-hidden="true">2.4.</strong> State</a></li><li class="chapter-item expanded "><a href="../axum/dependency_injection.html"><strong aria-hidden="true">2.5.</strong> Dependency Injection</a></li></ol></li><li class="chapter-item expanded "><a href="../server_side_rendering/general.html"><strong aria-hidden="true">3.</strong> Server Side Rendering</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../server_side_rendering/askama.html" class="active"><strong aria-hidden="true">3.1.</strong> Askama</a></li></ol></li><li class="chapter-item expanded "><a href="../htmx/general.html"><strong aria-hidden="true">4.</strong> Htmx</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../htmx/htmx_intro.html"><strong aria-hidden="true">4.1.</strong> Why HTMX?</a></li><li class="chapter-item expanded "><a href="../htmx/htmx_samples.html"><strong aria-hidden="true">4.2.</strong> HTMX samples</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="oranda-dark">Oranda Dark</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="oranda-light">Oranda Light</button></li>
+
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Meetup</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="askama"><a class="header" href="#askama">Askama</a></h1>
+<p>Askama is a popular Rust templating engine inspired by Jinja2 and Twig.
+It focuses on simplicity, safety, and efficiency by compiling templates into pure Rust code at build time.
+In this chapter, we will explore what makes Askama unique and learn how to use it effectively.</p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;title&gt;{{ title|upper }}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, {{ user.name }}!&lt;/h1&gt;
+    
+    {% if user.is_admin %}
+        &lt;p&gt;Welcome, Admin!&lt;/p&gt;
+    {% else %}
+        &lt;p&gt;Welcome, User!&lt;/p&gt;
+    {% endif %}
+    
+    &lt;ul&gt;
+        {% for role in user.roles %}
+            &lt;li&gt;{{ role }}&lt;/li&gt;
+        {% endfor %}
+    &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<center>example askama snippet displaying filter, conditional rendering and a loop</center>
+<h2 id="template-engines"><a class="header" href="#template-engines">Template Engines</a></h2>
+<p>Template engines are tools used to generate dynamic content (mostly, but not exclusively HTML).
+They generate the content by combining static templates with runtime data.
+Historically, they evolved out of server side includes and PHP, 
+where embedding logic directly in HTML became a standard practice for creating dynamic web pages. 
+Over time, modern template engines emerged with cleaner syntax, 
+better safety features, and more structured approaches to templating.
+They provide various properties that contribute to their usability and functionality:</p>
+<h3 id="safety-through-auto-escaping"><a class="header" href="#safety-through-auto-escaping">Safety Through Auto-Escaping</a></h3>
+<p>Modern template engines like Askama ensure safety by escaping special characters in user input. 
+This prevents common security issues like Cross-Site Scripting (XSS) in web applications. 
+By default, Askama escapes potentially unsafe characters when rendering HTML templates.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let user = User {
+    name: &quot;Alice&quot;,
+    bio: &quot;&lt;script&gt;alert('Hacked!')&lt;/script&gt;&quot;,
+};
+<span class="boring">}</span></code></pre></pre>
+<p>Scripts are by default escaped so they are not executed. <code>{{ bio }}</code> will be rendered like this:</p>
+<pre><code>&amp;lt;script&amp;gt;alert('Hacked!')&amp;lt;/script&amp;gt;
+</code></pre>
+<h3 id="minimal-set-of-control-syntax"><a class="header" href="#minimal-set-of-control-syntax">Minimal Set of Control Syntax</a></h3>
+<p>Template Engines provide a concise and minimal syntax for common control structures like <em>loops</em>, <em>conditionals</em>, and <em>filters</em>.
+This reduces boilerplate and improves template readability.</p>
+<h3 id="simplicity-and-composability"><a class="header" href="#simplicity-and-composability">Simplicity and Composability</a></h3>
+<p>Templates are meant to be simple and composable. 
+Template Engines typically support features like <em>includes</em> and <em>inheritance</em>, 
+which make it easy to break large templates into smaller, reusable pieces.</p>
+<h2 id="properties-of-askama"><a class="header" href="#properties-of-askama">Properties of Askama</a></h2>
+<h3 id="compiled-templates"><a class="header" href="#compiled-templates">Compiled Templates</a></h3>
+<p>Askama compiles templates into Rust code at build time.
+This approach ensures type safety, better performance, and early detection of syntax errors. 
+Unlike interpreted engines like Tera, Askama doesn’t evaluate templates at runtime, 
+making it faster and less error-prone at runtime.
+Tera, on the other hand, guarantees a more rapid development cycle especially for more complex projects, 
+exactly because it can get around the compilation step.</p>
+<h3 id="inspiration-from-jinja2-and-twig"><a class="header" href="#inspiration-from-jinja2-and-twig">Inspiration from Jinja2 and Twig</a></h3>
+<p>Askama’s syntax is heavily inspired by Jinja2 (Python) and Twig (PHP).
+Developers familiar with these engines will find Askama’s syntax intuitive and easy to adopt.
+The same is true for Tera.</p>
+<div class="table-wrapper"><table><thead><tr><th><strong>Feature</strong></th><th><strong>Askama</strong></th><th><strong>Jinja2</strong></th></tr></thead><tbody>
+<tr><td><strong>Variable interpolation</strong></td><td><code>Hello, {{ name }}!</code></td><td><code>Hello, {{ name }}!</code></td></tr>
+<tr><td><strong>Conditionals</strong></td><td><code>{% if is_logged_in %}Welcome!{% else %}Please log in.{% endif %}</code></td><td><code>{% if is_logged_in %}Welcome!{% else %}Please log in.{% endif %}</code></td></tr>
+<tr><td><strong>Loops</strong></td><td><code>{% for item in items %}&lt;li&gt;{{ item }}&lt;/li&gt;{% endfor %}</code></td><td><code>{% for item in items %}&lt;li&gt;{{ item }}&lt;/li&gt;{% endfor %}</code></td></tr>
+<tr><td><strong>Includes</strong></td><td><code>{% include &quot;header.html&quot; %}</code></td><td><code>{% include &quot;header.html&quot; %}</code></td></tr>
+<tr><td><strong>Template inheritance</strong></td><td><code>{% extends &quot;base.html&quot; %}{% block content %}Hello{% endblock %}</code></td><td><code>{% extends &quot;base.html&quot; %}{% block content %}Hello{% endblock %}</code></td></tr>
+<tr><td><strong>Filters</strong></td><td><code>{{ name\|upper }}</code></td><td><code>{{ name \| upper }}</code></td></tr>
+<tr><td><strong>Macros</strong></td><td><code>{% macro greet(name) %}Hello, {{ name }}!{% endmacro %}</code></td><td><code>{% macro greet(name) %}Hello, {{ name }}!{% endmacro %}</code></td></tr>
+<tr><td><strong>Match-like structures</strong></td><td><code>{% match status %}{% when &quot;success&quot; %}OK{% else %}Error{% endmatch %}</code></td><td></td></tr>
+<tr><td><strong>Rust-specific syntax</strong></td><td><code>{% if let Some(value) = optional %}{{ value }}{% endif %}</code></td><td></td></tr>
+</tbody></table>
+</div>
+<h2 id="how-to"><a class="header" href="#how-to">How-to</a></h2>
+<p>This section provides a step-by-step guide to using Askama in your projects.</p>
+<h3 id="include-askama-in-your-app"><a class="header" href="#include-askama-in-your-app">Include Askama in Your App</a></h3>
+<p>Add Askama to your <code>Cargo.toml</code> file:</p>
+<pre><code class="language-toml">[dependencies]
+askama = &quot;0.12&quot;
+</code></pre>
+<h3 id="locate-templates-in-your-project"><a class="header" href="#locate-templates-in-your-project">Locate Templates in Your project</a></h3>
+<p>Templates are stored in a templates directory by convention. 
+File extensions like <code>.html</code> or <code>.txt</code> indicate the template's format.</p>
+<p>For example, <code>templates/hello.html</code>:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Hello, {{ name }}!&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome, {{ name }}!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="use-variables--render-templates"><a class="header" href="#use-variables--render-templates">Use Variables / Render Templates</a></h3>
+<p>Pass data to templates using Rust structs:</p>
+<pre><pre class="playground"><code class="language-rust">use askama::Template;
+
+#[derive(Template)]
+#[template(path = &quot;hello.html&quot;)]
+struct HelloTemplate&lt;'a&gt; {
+    name: &amp;'a str,
+}
+
+fn main() {
+    let hello = HelloTemplate { name: &quot;Alice&quot; };
+    println!(&quot;{}&quot;, hello.render().unwrap());
+}</code></pre></pre>
+<h3 id="architect-with-template-inheritance--blocks"><a class="header" href="#architect-with-template-inheritance--blocks">Architect with Template Inheritance / Blocks</a></h3>
+<p>Template inheritance allows defining base layouts and extending them with specific blocks.
+For example:</p>
+<pre><code class="language-html">&lt;!-- templates/base.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;{% block title %}Default Title{% endblock %}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    {% block content %}{% endblock %}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<pre><code class="language-html">&lt;!-- templates/home.html --&gt;
+{% extends &quot;base.html&quot; %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+&lt;h1&gt;Welcome to the home page!&lt;/h1&gt;
+{% endblock %}
+</code></pre>
+<h3 id="compose-with-includes"><a class="header" href="#compose-with-includes">Compose with Includes</a></h3>
+<p>Use <code>{% include %}</code> to embed reusable components:</p>
+<pre><code class="language-html">&lt;!-- templates/base.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;{% block title %}Default Title{% endblock %}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    {% include &quot;header.html&quot; %}
+    {% block content %}{% endblock %}
+    {% include &quot;footer.html&quot; %}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="use-loops-and-conditionals"><a class="header" href="#use-loops-and-conditionals">Use Loops and Conditionals</a></h3>
+<p>Render dynamic content using loops and conditionals:</p>
+<pre><code class="language-html">&lt;ul&gt;
+{% for item in items %}
+    &lt;li&gt;{{ item }}&lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;
+
+{% if condition %}
+    &lt;p&gt;Condition is true!&lt;/p&gt;
+{% else %}
+    &lt;p&gt;Condition is false!&lt;/p&gt;
+{% endif %}
+</code></pre>
+<p>Rust-Specific if let and match
+Askama supports Rust's <code>if let</code> and <code>match</code> expressions for more complex logic:</p>
+<pre><code class="language-html">{% if let Some(value) = optional %}
+    &lt;p&gt;Value: {{ value }}&lt;/p&gt;
+{% else %}
+    &lt;p&gt;No value found.&lt;/p&gt;
+{% endif %}
+
+{% match status %}
+    {% when &quot;success&quot; %}&lt;p&gt;Success!&lt;/p&gt;
+    {% when &quot;error&quot; %}&lt;p&gt;Error occurred.&lt;/p&gt;
+    {% else %}&lt;p&gt;Unknown status.&lt;/p&gt;
+{% endmatch %}
+</code></pre>
+<h3 id="use-filters"><a class="header" href="#use-filters">Use Filters</a></h3>
+<p>Filters process variables for display:</p>
+<pre><code class="language-html">&lt;p&gt;{{ message|upper }}&lt;/p&gt;
+</code></pre>
+<p><em>Note that the pipe symbol must not be surrounded by spaces; otherwise, it will be interpreted as the BitOr operator.</em></p>
+<h3 id="register-your-own-filters"><a class="header" href="#register-your-own-filters">Register Your Own Filters</a></h3>
+<p>Custom filters can be registered in Rust code:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>mod filters {
+    pub fn reverse(s: &amp;str) -&gt; askama::Result&lt;String&gt; {
+        Ok(s.chars().rev().collect())
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="full-example-integrating-askama-with-axum"><a class="header" href="#full-example-integrating-askama-with-axum">Full Example: Integrating Askama with Axum</a></h2>
+<h3 id="step-1-template-definition"><a class="header" href="#step-1-template-definition">Step 1: Template Definition</a></h3>
+<p>Create an Askama template file, <code>templates/hello.html</code>:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;{{ title }}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, {{ user.name }}!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Define the corresponding Rust struct for the template:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use askama::Template;
+
+#[derive(Template)]
+#[template(path = &quot;hello.html&quot;)]
+pub struct HelloTemplate&lt;'a&gt; {
+    pub title: &amp;'a str,
+    pub user: User&lt;'a&gt;,
+}
+
+pub struct User&lt;'a&gt; {
+    pub name: &amp;'a str,
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="step-2-axum-handler-with-impl-intoresponse"><a class="header" href="#step-2-axum-handler-with-impl-intoresponse">Step 2: Axum Handler with impl IntoResponse</a></h3>
+<p>Set up an Axum handler that renders the Askama template:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use axum::{
+    response::{IntoResponse, Response},
+    routing::get,
+    Router,
+};
+use askama::Template; // Bring in the Template trait for rendering.
+use crate::{HelloTemplate, User};
+
+async fn hello_handler() -&gt; impl IntoResponse {
+    let user = User { name: &quot;Alice&quot; };
+    let template = HelloTemplate {
+        title: &quot;Hello Page&quot;,
+        user,
+    };
+
+    match template.render() {
+        Ok(html) =&gt; Response::builder()
+            .header(&quot;Content-Type&quot;, &quot;text/html&quot;)
+            .body(html)
+            .unwrap(),
+        Err(err) =&gt; {
+            eprintln!(&quot;Template rendering error: {}&quot;, err);
+            Response::builder()
+                .status(500)
+                .body(&quot;Internal Server Error&quot;.into())
+                .unwrap()
+        }
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="step-3-set-up-axum-application"><a class="header" href="#step-3-set-up-axum-application">Step 3: Set Up Axum Application</a></h3>
+<p>Create an Axum app and route the handler:</p>
+<pre><pre class="playground"><code class="language-rust">#[tokio::main]
+async fn main() {
+    let app = Router::new().route(&quot;/&quot;, get(hello_handler));
+    axum::Server::bind(&amp;&quot;127.0.0.1:3000&quot;.parse().unwrap())
+        .serve(app.into_make_service())
+        .await
+        .unwrap();
+}</code></pre></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../server_side_rendering/general.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../htmx/general.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../server_side_rendering/general.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../htmx/general.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
