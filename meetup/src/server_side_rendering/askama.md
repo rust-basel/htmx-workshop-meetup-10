@@ -207,30 +207,18 @@ Askama supports Rust's `if let` and `match` expressions for more complex logic:
 ### Use Filters
 Filters process variables for display:
 ```html
-<p>{{ message | upper }}</p>
+<p>{{ message|upper }}</p>
 ```
+*Note that the pipe symbol must not be surrounded by spaces; otherwise, it will be interpreted as the BitOr operator.*
 
 ### Register Your Own Filters
 Custom filters can be registered in Rust code:
-```html
-use askama::filters;
-
-pub fn reverse(s: &str) -> askama::Result<String> {
-    Ok(s.chars().rev().collect())
+```rust
+mod filters {
+    pub fn reverse(s: &str) -> askama::Result<String> {
+        Ok(s.chars().rev().collect())
+    }
 }
-```
-
-### Render Tree Structures with Macro
-Macros allow reusable template logic. For example, rendering a tree structure:
-```html
-{% macro render_tree(node) %}
-<ul>
-    <li>{{ node.name }}</li>
-    {% for child in node.children %}
-    {{ render_tree(child) }}
-    {% endfor %}
-</ul>
-{% endmacro %}
 ```
 
 ## Full Example: Integrating Askama with Axum
