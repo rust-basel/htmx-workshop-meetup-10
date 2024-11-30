@@ -5,14 +5,12 @@ pub mod qr_code;
 pub mod server;
 pub mod technical_endpoints;
 
-#[tokio::main]
-async fn main() {
-    start().await
+#[shuttle_runtime::main]
+async fn main() -> shuttle_axum::ShuttleAxum {
+    let (_, app) = start().await;
+    Ok(app.into())
 }
 
-pub async fn start() {
-    let (listener, app) = create_server().await.expect("could not create server");
-    axum::serve(listener, app)
-        .await
-        .expect("could not start server");
+pub async fn start() -> (tokio::net::TcpListener, axum::Router) {
+    create_server().await.expect("could not create server")
 }
