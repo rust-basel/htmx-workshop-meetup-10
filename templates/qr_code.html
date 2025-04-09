@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html data-theme="dark">
-<link rel="stylesheet" href="_assets/pico.min.css"> 
+<link rel="stylesheet" href="_assets/mvp.css"> 
 <link rel="stylesheet" href="_assets/app.css">
 <script src="/_assets/htmx.min.js"></script>
 
@@ -18,22 +18,22 @@
     <div class="qr-container">
         
         <div id="qr_code_image">
-            <img class="qrcode" src="https://htmx.org/img/memes/bellcurve2.png" >
+            <div class="placeholder" >
+              Placeholder for QR code
+            </div>
         </div>
         
         <form class='outline generate-form' hx-post="/qrcodes" hx-target="#qr_code_image" hx-swap="inneHTML">
     
-            <label for="qrcode-name">
+            <label for="qrcode-iban">
                 IBAN
             </label>
             <input 
                 type="text"
                 id="qrcode-iban"
                 name="iban"
-                pattern="^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$"
                 value="CH5604835012345678009"
                 required ="true"
-                placeholder="CH5604835012345678009"
             >
             <label for="qrcode-name">
                 Name
@@ -42,7 +42,6 @@
                 type="text"
                 id="qrcode-name"
                 name="qr_code_name"
-                placeholder="John Doe"
                 required ="true"
             >
                 
@@ -53,18 +52,17 @@
                 type="text"
                 id="qrcode_amount"
                 name="qrcode_amount"
-                pattern="[0-9]+(\.[0-9]{1,2})?"
                 placeholder="132.43"
                 required ="true"
             >
                 
-            <label for="qrcode-name">
+            <label for="qrcode-currency">
                 Currency
             </label>
-            <input type="text"
+            <input
+                type="text"
                 id="qrcode-currency"
                 name="currency"
-                pattern="[A-Za-z]{3}"
                 value="CHF"
                 placeholder="no effect yet"
                 required ="true"

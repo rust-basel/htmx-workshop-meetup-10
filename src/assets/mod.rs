@@ -20,8 +20,8 @@ pub async fn include_app_css() -> impl IntoResponse {
         .expect("could not parse headers")
 }
 
-pub async fn include_pico_css() -> impl IntoResponse {
-    let pico = include_str!("../../assets/pico.min.css");
+pub async fn include_mvp_css() -> impl IntoResponse {
+    let pico = include_str!("../../assets/mvp.css");
     Response::builder()
         .header(header::CONTENT_TYPE, mime::TEXT_CSS.as_ref())
         .body(Body::from(pico))

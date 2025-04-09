@@ -1,5 +1,5 @@
 set dotenv-load := true
-import 'api_tests/hurl.just'
+import 'api_tests/test.just'
 
 alias v := verify
 alias r := run
