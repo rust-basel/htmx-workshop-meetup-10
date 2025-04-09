@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js oranda-dark">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Dependency Injection - Meetup</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" href="../oranda-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "oranda-dark" : "oranda-dark";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('orandamdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('orandamdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('orandamdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('oranda-dark')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="../axum/general.html"><strong aria-hidden="true">2.</strong> Axum</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../axum/axum.html"><strong aria-hidden="true">2.1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="../axum/handlers.html"><strong aria-hidden="true">2.2.</strong> Handlers</a></li><li class="chapter-item expanded "><a href="../axum/extraction.html"><strong aria-hidden="true">2.3.</strong> Extraction</a></li><li class="chapter-item expanded "><a href="../axum/state.html"><strong aria-hidden="true">2.4.</strong> State</a></li><li class="chapter-item expanded "><a href="../axum/dependency_injection.html" class="active"><strong aria-hidden="true">2.5.</strong> Dependency Injection</a></li></ol></li><li class="chapter-item expanded "><a href="../server_side_rendering/general.html"><strong aria-hidden="true">3.</strong> Server Side Rendering</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../server_side_rendering/askama.html"><strong aria-hidden="true">3.1.</strong> Askama</a></li></ol></li><li class="chapter-item expanded "><a href="../htmx/general.html"><strong aria-hidden="true">4.</strong> Htmx</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../htmx/htmx_intro.html"><strong aria-hidden="true">4.1.</strong> Why HTMX?</a></li><li class="chapter-item expanded "><a href="../htmx/htmx_samples.html"><strong aria-hidden="true">4.2.</strong> HTMX samples</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="oranda-dark">Oranda Dark</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="oranda-light">Oranda Light</button></li>
+
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Meetup</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="optional-dependency-injectioninversion-with-axum"><a class="header" href="#optional-dependency-injectioninversion-with-axum">(Optional) Dependency Injection/Inversion with Axum</a></h1>
+<p>As of now we added our state directly into our web project. For greater projects
+it usually makes sense to abstract details away. In the end it should not matter,
+how your state is stored. It might be an SQL like database, a file, or something else.</p>
+<p>In the end you are only interested in &quot;storing&quot; your state. But how - is a matter of detail,
+that we are now going to abstract away.</p>
+<p>Currently, we have this dependency tree (left) - but we want to invert the dependency (right):</p>
+<p><img src="assets/dependency_inversion.png" alt="img.png" /></p>
+<p>Here you do not have to code anything - we just wanted you to show, how a production style
+rust webserver could look like. The code for it is in <code>snippets/injection</code>. You can run the unit tests with
+<code>cargo test</code>, or run the webserver by <code>cargo run</code>.</p>
+<h2 id="turning-around-dependencies"><a class="header" href="#turning-around-dependencies">Turning around dependencies</a></h2>
+<p>Our goal would be to turn around the dependency, such that our business logic
+does not depend on the implementation of the storage. Rather it should depend on an interface.
+The implementation then should depend on that same interface as well.
+This way, we can decouple
+our business logic from the implementation of our storage.</p>
+<p>In Rust you usually achieve this behaviour with Traits.</p>
+<p>First we define our trait, that's our interface layer between the storage implementation and anything else (e.g. our business logic):</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[async_trait]
+pub trait Repository {
+    async fn add_user(&amp;mut self, user: &amp;UserToCreate) -&gt; User;
+    async fn remove_user(&amp;mut self, id: i64) -&gt; Option&lt;User&gt;;
+    async fn get_users(&amp;self) -&gt; Vec&lt;User&gt;;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Next, we can then implement a struct, that wraps our details and implements the above trait.
+We implement an <code>SqliteAdapter</code> - wrapping an <code>SqlitePool</code> and implementing above interface.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[derive(Clone)]
+pub struct SqliteAdapter {
+    pool: SqlitePool,
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[async_trait]
+impl Repository for SqliteAdapter {
+    async fn add_user(&amp;mut self, user: &amp;UserToCreate) -&gt; User {..}
+    async fn remove_user(&amp;mut self, id: i64) -&gt; Option&lt;User&gt; {..}
+    async fn get_users(&amp;self) -&gt; Vec&lt;User&gt; {..}
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="how-do-you-now-use-this-trait-in-axum-handlers"><a class="header" href="#how-do-you-now-use-this-trait-in-axum-handlers">How do you now use this trait in axum handlers?</a></h2>
+<p>To make use of our new trait, we have to make them known to our handlers (where we
+usually have our business logic). Instead of using a struct inside our <code>State</code> extractor, we can
+use the trait with static dispatch (generics):</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub async fn get_users&lt;T: Repository&gt;(State(repo): State&lt;T&gt;) -&gt; impl IntoResponse {
+    Json(repo.get_users().await)
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Now our inner logic (turning things into a Json), does not depend on the implementation, but rather on the interface,
+that promises to return a list of users.</p>
+<p>As axum heavily depends on generics, it's a bit harder to tell the compiler, that we want to make
+use of this trait. Structs, that implement our trait, also must implement more traits
+to be used in a &quot;generic&quot; router.</p>
+<p>To be correct they must implement: <code>Clone + Send + Sync + 'static</code>. For example our
+<code>Arc&lt;Mutex&lt;HashMap&lt;_,_&gt;&gt;&gt;</code> would implement all of these above. For our SqliteAdapter
+<code>Send + Sync</code> is implement be the wrapped <code>SqlitePool</code>. This is why have to declare our
+<code>SqliteAdapter</code> to by <code>Clone</code>. Our structures are automatically <code>'static</code>, as we will create
+them in the beginning of our program (see chapters below) - and we guarantee, they outlive all places where they are used.</p>
+<p>TL;DR: Our router (that defines the routes, and uses our handlers) needs more guarantees to be generic
+We have to make more guarantees, so we can use the interface we defined. A generic router looks like this now:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub fn routes&lt;T: Repository + Clone + Send + Sync + 'static&gt;() -&gt; Router&lt;T&gt; {
+    Router::new()
+        .route(&quot;/users&quot;, get(get_users::&lt;T&gt;).post(add_user::&lt;T&gt;))
+        .route(&quot;/users/:id&quot;, delete(remove_user::&lt;T&gt;))
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="how-and-where-do-you-dependency-inject-the-implementation"><a class="header" href="#how-and-where-do-you-dependency-inject-the-implementation">How (and where) do you dependency inject the implementation?</a></h2>
+<p>After we have a trait layer between our storage implemention, the next question is,
+where do we now <em>inject</em> our <code>SqliteAdapter</code> into our program?</p>
+<p>The answer is rather simple. We just give our <code>with_state(...)</code> method in the router builder
+our <code>SqliteAdapter</code>. The compiler is happy, as <code>SqliteAdapter</code> meets all guarantees, we promised
+our compiler.</p>
+<p>We inject like this:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let pool = Sqlitepool:new()...;// create an sqlitepool from sqlx
+let adapter = SqliteAdapter::new(pool).await;
+let router = Router::new().merge(user::routes()).with_state(adapter);
+<span class="boring">}</span></code></pre></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../axum/state.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../server_side_rendering/general.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../axum/state.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../server_side_rendering/general.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
