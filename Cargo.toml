@@ -30,7 +30,7 @@ maud = "0.26.0"
 
 anyhow= "1"
 
-uuid = {version ="1.10.0", features = [
+uuid = {version ="1.16.0", features = [
     "v4",
     "fast-rng", 
 ] }
