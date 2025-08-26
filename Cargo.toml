@@ -24,7 +24,7 @@ serde = { version = "1.0", features = ["derive"] }
 mime = "0.3"
 
 # html templating
-askama = { version = "0.12.1" }
+askama = { version = "0.14.0" }
 maud = "0.26.0"
 
 
