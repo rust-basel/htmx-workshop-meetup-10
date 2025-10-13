@@ -35,7 +35,7 @@ uuid = {version ="1.10.0", features = [
     "fast-rng", 
 ] }
 
-regex = "1.11"
+regex = "1.12"
 qrbill = { git = "https://github.com/bar9/qrbill.git"}
 isocountry = "0.3.2"
 html-escape = "0.2.13"
